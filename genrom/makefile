@@ -1,5 +1,6 @@
 all:
-	g++ rom.cpp -o rom
+	g++ rom.cpp -o rom -static
 	
+.PHONY: run
 run:
-	./rom > salida.txt	
+	./rom fuente32.png > salida.txt	

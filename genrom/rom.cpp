@@ -2,13 +2,16 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
    
-int main(){
-	FILE *fp = fopen("fuente32.png", "rb");
+int main(int argc, char **args){
+	if(argc != 2)
+		return -1;
+	
+	FILE *fp = fopen(args[1], "rb");
+	if(!fp)
+		return -1;
 	
 	//Cada fila se mappea en una dirección distinta en la memoria
 	//Se asume que la imagen es monocromática, si no lo es se hace un umbral en 128
-	
-	if(!fp) return -1;
 	
 	int w,h,comp;
 	unsigned char *data = stbi_load_from_file(fp,&w,&h,&comp,0);

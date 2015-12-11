@@ -105,10 +105,10 @@ int serialInit(char *name){
 
 #endif
 
-
 struct punto16bits{
 	int16_t x,y,z;
 
+	//Operadores necesarios para armar un SET de puntos
 	const bool operator < ( const punto16bits &r ) const{
 		if(x == r.x){
 			if(y == r.y){
@@ -123,7 +123,13 @@ struct punto16bits{
 	
 };
 int main(int argc, char **args){
-	ifstream coords("coordenadas.txt");
+	if(argc != 3){
+		cout << "Uso: enviar PUERTO COORDS" << endl;
+		cout << "Ejemplo: enviar COM3 coordenadas.txt" << endl;
+		cout << "   o     enviar /dev/ttyS0 coordenadas.txt" << endl;
+		return -1;
+	}
+	ifstream coords(args[2]);
 	
 	vector <punto16bits> vecPuntos;
 	set <punto16bits> setPuntos;
@@ -164,7 +170,7 @@ int main(int argc, char **args){
 			out << (uint16_t)vecPuntos[i].x << endl << (uint16_t)vecPuntos[i].y << endl << (uint16_t)vecPuntos[i].z << endl;
 	
 	HANDLE hSerial;
-	if((hSerial = serialInit("/dev/ttyS0")) == 0) return 1;
+	if((hSerial = serialInit(args[1])) == 0) return 1;
 	
 	cout << "Cargados " << puntosTotales << " puntos, " << vecPuntos.size() << " sin repetidos." << endl;
 	

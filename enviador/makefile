@@ -1,5 +1,6 @@
 all:
-	g++ enviar.cpp -o enviar.exe -Wall
+	g++ enviar.cpp -o enviar.exe -Wall -static
 	
+.PHONY: run	
 run:
-	./enviar COM1
+	./enviar COM1 coordenadas.txt
